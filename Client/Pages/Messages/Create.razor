@@ -1,0 +1,19 @@
+﻿@page "/messages/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Staff</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Send Message" message="message" OnValidSubmit="@CreateMessage" />
+
+@code {
+    Message message = new Message();
+
+    private async Task CreateMessage()
+    {
+        await _client.PostAsJsonAsync(Endpoints.MessagesEndpoint, message);
+        _navManager.NavigateTo("/messages/");
+    }
+}
